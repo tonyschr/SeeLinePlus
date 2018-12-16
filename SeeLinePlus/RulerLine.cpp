@@ -52,7 +52,6 @@ void RulerLine::DrawLineBitmap(Graphics& graphics)
         {
             graphics.DrawLine(&markingsPen, i, 0, i, 30);
         }
-
     }
 }
 
