@@ -7,6 +7,7 @@
 class RulerLine : public LineWindow
 {
 public:
+    std::wstring GetName() override;
     SIZE GetWindowSize() override;
 
 protected:

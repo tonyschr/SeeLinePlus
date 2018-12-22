@@ -1,10 +1,20 @@
 #include "stdafx.h"
 #include "ClassicLine.h"
 
+std::wstring ClassicLine::GetName()
+{
+    return L"Classic line";
+}
+
 SIZE ClassicLine::GetWindowSize()
 {
     // The line is as wide as the screen and two pixels high.
     return SIZE { GetScreenWidth(), 2 };
+}
+
+POINT ClassicLine::GetWindowOffset()
+{
+    return POINT { 0, 10 };
 }
 
 bool ClassicLine::WindowFollowsMouse()

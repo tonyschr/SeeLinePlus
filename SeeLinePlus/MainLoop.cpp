@@ -1,8 +1,17 @@
 #include "stdafx.h"
-#include "RulerLine.h"
-#include "ClassicLine.h"
+#include "SeeLineTray.h"
 
 using namespace Gdiplus;
+
+void PumpMessages()
+{
+    MSG msg = { 0 };
+    while (GetMessage(&msg, NULL, 0, 0))
+    {
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
+    }
+}
 
 int APIENTRY WinMain(
     HINSTANCE hInstance,
@@ -17,15 +26,10 @@ int APIENTRY WinMain(
     ULONG_PTR gdiplusToken = 0;
     GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
 
-    //LineWindow* line = new RulerLine();
-    LineWindow* line = new ClassicLine();
-    line->Initialize();
-
-    MSG msg = { 0 };
-    while (GetMessage(&msg, NULL, 0, 0)) 
+    SeeLineTray tray;
+    if (tray.Create())
     {
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
+        PumpMessages();
     }
 
     GdiplusShutdown(gdiplusToken);

@@ -10,9 +10,11 @@ public:
     TrayIcon();
     ~TrayIcon();
 
-    bool Create(HWND window);
+    bool Create(HWND window, HICON icon);
     void Destroy();
 
 private:
-    HWND m_hwnd;
+    HWND m_notifyWindow;
 };
+
+HICON LoadTrayIcon(UINT resourceId);

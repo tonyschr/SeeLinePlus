@@ -160,6 +160,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="LineWindow.h" />
     <ClInclude Include="RulerLine.h" />
+    <ClInclude Include="SeeLineTray.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TrayIcon.h" />
@@ -169,6 +170,7 @@
     <ClCompile Include="MainLoop.cpp" />
     <ClCompile Include="LineWindow.cpp" />
     <ClCompile Include="RulerLine.cpp" />
+    <ClCompile Include="SeeLineTray.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
