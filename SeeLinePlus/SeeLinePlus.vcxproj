@@ -161,6 +161,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ClassicLine.h" />
+    <ClInclude Include="FancyLine.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="LineWindow.h" />
     <ClInclude Include="RulerLine.h" />
@@ -171,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ClassicLine.cpp" />
+    <ClCompile Include="FancyLine.cpp" />
     <ClCompile Include="MainLoop.cpp" />
     <ClCompile Include="LineWindow.cpp" />
     <ClCompile Include="RulerLine.cpp" />

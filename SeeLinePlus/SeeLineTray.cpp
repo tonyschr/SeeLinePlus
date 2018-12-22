@@ -5,6 +5,7 @@
 // Line types
 #include "RulerLine.h"
 #include "ClassicLine.h"
+#include "FancyLine.h"
 
 HINSTANCE g_hInstance = NULL;
 
@@ -15,6 +16,7 @@ SeeLineTray::SeeLineTray() :
 
     // Add the various lines.
     m_lineWindows.push_back(std::make_unique<ClassicLine>());
+    m_lineWindows.push_back(std::make_unique<FancyLine>());
     m_lineWindows.push_back(std::make_unique<RulerLine>());
 }
 
