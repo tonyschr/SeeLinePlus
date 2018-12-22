@@ -5,7 +5,9 @@
 class ClassicLine : public LineWindow
 {
 public:
+    std::wstring GetName() override;
     SIZE GetWindowSize() override;
+    POINT GetWindowOffset() override;
 
 protected:
     bool WindowFollowsMouse() override;

@@ -3,7 +3,7 @@
 #include "TrayIcon.h"
 
 TrayIcon::TrayIcon() : 
-    m_hwnd(NULL)
+    m_notifyWindow(nullptr)
 {
 }
 
@@ -12,47 +12,41 @@ TrayIcon::~TrayIcon()
     Destroy();
 }
 
-bool TrayIcon::Create(HWND window)
+bool TrayIcon::Create(HWND notifyWindow, HICON icon)
 {
-    if(window != NULL)
-    {
-        m_hwnd = window;
+    m_notifyWindow = notifyWindow;
 
-        HICON icon = (HICON)LoadImage(g_instance,
-            MAKEINTRESOURCE(IDI_SMALL),
-            IMAGE_ICON,
-            16,
-            16,
-            0);
+    NOTIFYICONDATA notifydata = { 0 };
+    notifydata.cbSize = sizeof(NOTIFYICONDATA);
+    notifydata.hWnd = m_notifyWindow;
+    notifydata.uID = TRAYICON_ID;
+    notifydata.uFlags = NIF_MESSAGE | NIF_ICON | NIF_TIP;
+    notifydata.uCallbackMessage = WM_TRAYICON_NOTIFY;
+    notifydata.hIcon = icon;
+    StringCchCopy(notifydata.szTip, ARRAYSIZE(notifydata.szTip), L"SeeLine Plus");
 
-        NOTIFYICONDATA notifydata = { 0 };
-        notifydata.cbSize = sizeof(NOTIFYICONDATA);
-        notifydata.hWnd = m_hwnd;
-        notifydata.uID = TRAYICON_ID;
-        notifydata.uFlags = NIF_MESSAGE | NIF_ICON | NIF_TIP;
-        notifydata.uCallbackMessage = WM_TRAYICON_NOTIFY;
-        notifydata.hIcon = icon;
-        StringCchCopy(notifydata.szTip, ARRAYSIZE(notifydata.szTip), L"SeeLine Plus");
-    
-        BOOL fRes = Shell_NotifyIcon(NIM_ADD, &notifydata);
-        if(!fRes)
-        {
-            m_hwnd = NULL;
-        }
-    }
-    
-    return m_hwnd != NULL;
+    return Shell_NotifyIcon(NIM_ADD, &notifydata);
 }
 
 void TrayIcon::Destroy()
 {
-    if(m_hwnd != NULL)
+    if (m_notifyWindow != nullptr)
     {
         NOTIFYICONDATA notifydata = { 0 };        
         notifydata.cbSize = sizeof(NOTIFYICONDATA);
-        notifydata.hWnd = m_hwnd;
+        notifydata.hWnd = m_notifyWindow;
         notifydata.uID = TRAYICON_ID;
         
         Shell_NotifyIcon(NIM_DELETE, &notifydata);
     }
+}
+
+HICON LoadTrayIcon(UINT resourceId)
+{
+    return (HICON)LoadImage(g_instance,
+        MAKEINTRESOURCE(resourceId),
+        IMAGE_ICON,
+        16,
+        16,
+        0);
 }

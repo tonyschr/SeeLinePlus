@@ -1,6 +1,11 @@
 #include "stdafx.h"
 #include "RulerLine.h"
 
+std::wstring RulerLine::GetName()
+{
+    return L"Ruler";
+}
+
 SIZE RulerLine::GetWindowSize()
 {
     // The line is as wide as the screen and two pixels high.
