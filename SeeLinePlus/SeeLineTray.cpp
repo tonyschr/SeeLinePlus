@@ -43,7 +43,7 @@ bool SeeLineTray::Create()
         m_hwnd = CreateWindowEx(0,
             L"SeeLineTrayClass",
             L"SeeLineTrayWindow",
-            WS_OVERLAPPEDWINDOW, // TONYSCHR
+            WS_OVERLAPPEDWINDOW,
             0,
             0,
             2,
@@ -111,11 +111,7 @@ LRESULT CALLBACK SeeLineTray::WndProc(HWND hwnd, UINT message, WPARAM wParam, LP
         {
         case WM_CONTEXTMENU:
         case WM_RBUTTONUP:
-        {
-            POINT pt;
-            GetCursorPos(&pt);
-            ShowTrayMenu(pt);
-        }
+            ShowTrayMenu();
         break;
 
         case WM_LBUTTONUP:
@@ -133,14 +129,18 @@ LRESULT CALLBACK SeeLineTray::WndProc(HWND hwnd, UINT message, WPARAM wParam, LP
     return DefWindowProc(hwnd, message, wParam, lParam);
 }
 
-void SeeLineTray::ShowTrayMenu(const POINT& pt)
+void SeeLineTray::ShowTrayMenu()
 {
+    POINT pt = { 0 };
+    GetCursorPos(&pt);
+
     HMENU hMenu = CreatePopupMenu();
     if (hMenu != NULL)
     {
         const UINT c_closeMenuId = 1000;
         const UINT c_baseLineId = 2000;
 
+        // Add all the lines to the menu.
         for (int i = 0; i < m_lineWindows.size(); i++)
         {
             UINT flags = MF_STRING;
@@ -178,7 +178,7 @@ void SeeLineTray::ShowTrayMenu(const POINT& pt)
         }
     }
 }
-
+// Toggles the visibility of the specified line.
 void SeeLineTray::ToggleLine(std::unique_ptr<LineWindow>& lineWindow)
 {
     if (lineWindow->IsVisible())

@@ -21,7 +21,7 @@ private:
     TrayIcon m_trayicon;
     std::vector<std::unique_ptr<LineWindow>> m_lineWindows;
 
-    void ShowTrayMenu(const POINT& pt);
+    void ShowTrayMenu();
     void ToggleLine(std::unique_ptr<LineWindow>& lineWindow);
     void OnLeftClick();
 };
