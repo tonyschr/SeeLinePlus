@@ -33,7 +33,7 @@ bool SeeLineTray::Create()
 {
     bool created = false;
 
-    WNDCLASSEX wcex = { 0 };
+    WNDCLASSEX wcex = {};
     wcex.cbSize = sizeof(WNDCLASSEX);
     wcex.style = CS_HREDRAW | CS_VREDRAW;
     wcex.lpfnWndProc = (WNDPROC)WndProcStatic;
@@ -53,11 +53,9 @@ bool SeeLineTray::Create()
             NULL,
             NULL,
             g_hInstance,
-            NULL);
+            this);
         if (m_hwnd != nullptr)
         {
-            SetWindowLongPtr(m_hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
-
             if (m_trayicon.Create(m_hwnd, m_icon))
             {
                 created = true;
@@ -175,7 +173,10 @@ void SeeLineTray::ShowTrayMenu()
             break;
 
         default:
-            ToggleLine(m_lineWindows[id - c_baseLineId]);
+            if (id >= c_baseLineId)
+            {
+                ToggleLine(m_lineWindows[id - c_baseLineId]);
+            }
             break;
         }
     }
