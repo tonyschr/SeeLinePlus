@@ -12,7 +12,7 @@ HINSTANCE g_hInstance = NULL;
 SeeLineTray::SeeLineTray() :
     m_hwnd(nullptr)
 {
-    m_icon = LoadTrayIcon(IDI_SMALL);
+    m_icon = LoadTrayIcon(IDI_SEELINEPLUS);
 
     // Add the various lines.
     m_lineWindows.push_back(std::make_unique<ClassicLine>());
